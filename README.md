@@ -10,7 +10,10 @@
 	4. ES6 : 템플릿 문자열
 	5. ES6 : 객체 확장 표현식, 구조 분해 할당, 전개 연산자
 	6. ES6 : 클래스, 클래스 상속
-	
-
+2. 2일차
+	1. ES6 : 모듈 사용하기, import/export
+	2. ES6 : 화살표 함수
+	3. ES6 : 배열 함수(forEach, map)
+	4. ES6 : 비동기처리(promise, async/await)
 	
 	
