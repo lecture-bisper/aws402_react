@@ -15,5 +15,7 @@
 	2. ES6 : 화살표 함수
 	3. ES6 : 배열 함수(forEach, map)
 	4. ES6 : 비동기처리(promise, async/await)
-	
-	
+3. 3일차
+	1. TS : 타입스크립트란
+	2. TS : 데이터타입 (boolean, number, string, null, undefined, object, any, void, never, tuple, enum)
+	3. TS : interface, type, 구조적 타이핑
