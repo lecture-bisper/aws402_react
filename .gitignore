@@ -107,3 +107,5 @@ build/
 **/android/app/debug
 **/android/app/profile
 **/android/app/release
+react_20260908/src/ts/dataType.js
+react_20260908/src/ts/interface_type.js
