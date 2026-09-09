@@ -109,3 +109,5 @@ build/
 **/android/app/release
 react_20260908/src/ts/dataType.js
 react_20260908/src/ts/interface_type.js
+react_20260909/src/ts/function_callback.js
+react_20260909/src/ts/union_optional_null.js

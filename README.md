@@ -19,3 +19,8 @@
 	1. TS : 타입스크립트란
 	2. TS : 데이터타입 (boolean, number, string, null, undefined, object, any, void, never, tuple, enum)
 	3. TS : interface, type, 구조적 타이핑
+4. 4일차
+	1. TS : 유니온, 옵셔널, 옵셔널 체이닝, nullish 병합
+	2. TS : 타입스크립트의 함수, 화살표 함수, 선택적 매개변수, 매개변수 기본값, 함수 타입 표기, 함수를 매개변수로 사용
+	3. TS : 제네릭 사용하기
+	4. React : JSX, 컴포넌트 생성, 컴포넌트 호출
