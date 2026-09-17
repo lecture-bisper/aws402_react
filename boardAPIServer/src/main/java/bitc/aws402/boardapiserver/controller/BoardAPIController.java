@@ -7,8 +7,12 @@
 package bitc.aws402.boardapiserver.controller;
 
 import bitc.aws402.boardapiserver.dto.BoardDTO;
+import bitc.aws402.boardapiserver.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //  @CrossOrigin : CORS 오류 발생 시 지정한 URL 에서 요청하는 리소스는 CORS 규칙 위반에서 제외하는 어노테이션
 //  클래스와 메소드에 모두 사용 가능
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class BoardAPIController {
 
+  private final BoardService boardService;
+
 //  @CrossOrigin("http://localhost:5173")
   @GetMapping({"", "/"})
   public String index() {
@@ -28,9 +34,10 @@ public class BoardAPIController {
 
 //  @CrossOrigin("http://localhost:5173")
   @GetMapping("/boardList")
-  public String selectBoardList() {
+  public Object selectBoardList() {
 
-    return "게시물 목록 페이지";
+    List<BoardDTO> boardList = boardService.selectBoardList();
+    return boardList;
   }
 
   @GetMapping("/boardDetail")
