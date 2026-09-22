@@ -55,4 +55,6 @@
 	1. React : React Router와 주요 컴포넌트
 	2. React : React Router로 게시판 프론트엔드와 Axios 로 통신하기
 	3. React : 스프링부트 Rest API 서버
-	
+10. 10일차
+	1. React : 스프링부트 백엔드 + React 프론트엔도 통합하기
+	2. React : 스프링부트 yaml 설정 사용하기, 설정 파일 분할하기.

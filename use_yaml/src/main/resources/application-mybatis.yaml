@@ -1,0 +1,12 @@
+
+spring:
+  config:
+    activate:
+      on-profile: mybatis
+
+mybatis:
+  mapper-locations: classpath:sql/**/sql-*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null
+  type-aliases-package: bitc.aws402.use_yaml.dto

@@ -1,0 +1,138 @@
+# 프로필 분리하기
+# application.properties 나 application.yaml 파일을 목적에 따라 여러개로 분리하여 사용할 수 있음
+# 기본 파일명은 application.properties 나 application.yaml 로 지정되어 있음
+# 추가 프로필 파일은 application-프로필명.properties 혹은 application-프로필명.yaml 형식으로 추가
+# 추가 프로필 파일 안에서 'spring.config.activate.on-profile=프로필명' 설정 추가
+# 기본 프로필 파일에서 'spring.profiles.active=프로필명' 설정을 추가하여 사용할 프로필 파일을 선택
+# 기본 프로필 파일에서 추가 프로필 파일을 호출 시 일단 기본 프로필 파일이 무조건 동작, 추가 프로필 파일을 기본 프로필 파일에 없는 내용을 입력
+# 공통적인 설정은 기본 프로파일에 입력, 달라지는 설정은 각각의 프로필 파일에 입력
+
+# 기본 파일 : application.yaml
+#spring:
+#  profiles:
+#    active: prod
+
+# 추가 프로필 파일 : application-dev.yaml
+#spring:
+#  config:
+#      activate:
+#        on-profile: dev
+
+# 추가 프로필 파일 : application-prod.yaml
+#spring:
+#  config:
+#    activate:
+#      on-profile: prod
+
+
+# 기본 파일에서 다른 추가 프로필 파일을 로드할 경우 여러개의 프로필 파일을 한번에 로드 가능
+# 기본 파일 : application.yaml
+#spring:
+#  profiles:
+#    include: oauth, jwt
+
+# 추가 프로필 파일 : application-oauth.yaml
+#spring:
+#  config:
+#    activate:
+#      on-profile: oauth
+
+# 추가 프로필 파일 : application-jwt.yaml
+#spring:
+#  config:
+#    activate:
+#      on-profile: jwt
+
+
+# 기본 파일에서 추가 프로필 파일을 호출 시 추가 프로필 파일이 여러개 있을 경우 그룹으로 묶어서 로드 가능
+# 기본 프로필 파일에서 'spring.profiles.group.그룹명= -프로필1, 프로필2' 형식을 추가하여 사용
+# 기본 파일 : application.yaml
+#spring:
+#  profiles:
+#    active: local
+#    group:
+#      local:
+#        - jwt, basic
+#      dev:
+#        - jwt, oauth
+
+
+#spring:
+#  application:
+#    name: use_yaml
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password: ${H2_PASSWORD}
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#  jpa:
+#    database: h2
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: create
+#    defer-datasource-initialization: true
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#  sql:
+#    init:
+#      mode: embedded
+#
+#mybatis:
+#  mapper-locations: classpath:sql/**/sql-*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    jdbc-type-for-null: null
+#  type-aliases-package: bitc.aws402.use_yaml.dto
+#
+#server:
+#  port: 8080
+
+
+
+
+spring:
+  application:
+    name: use_yaml
+
+  profiles:
+#    한번에 하나씩 가져오기
+#    active: mysql
+#    한번에 여러개 가져오기
+#    include: mysql, mybatis
+#    그룹으로 묶어서 여러개 가져오기
+    active: prod
+    group:
+      dev:
+        - h2
+      prod:
+        - mysql, mybatis
+
+
+# 공통 설정
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+server:
+  port: 8080
+
+
+
+

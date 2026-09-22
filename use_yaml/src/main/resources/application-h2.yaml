@@ -1,0 +1,47 @@
+
+spring:
+  config:
+    activate:
+      on-profile: h2
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: ${H2_PASSWORD}
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database: h2
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: embedded
+
+
+# 문제 1) 게시판 프로그램을 작성하세요
+# 1. 게시글, 댓글 사용이 가능한 게시판
+# 2. db 는 JPA 사용 (repository, entity)
+# 3. 프론트는 react, 백엔드 스프링부트 (rest api)
+# 4. react-router 를 사용하여 각 페이지 이동할 수 있도록 설정(list, detail, write)
+# 5. axios 를 사용하여 스프링부트 서버와 비동기 통신
+# 6. 배포 파일 만들기
+
+
+
+
+
+
+
+
+
+
