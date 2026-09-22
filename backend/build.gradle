@@ -1,0 +1,123 @@
+import org.springframework.cglib.core.Local
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.8'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'bitc.aws402'
+version = '0.1.1-SNAPSHOT'
+description = 'backend'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testCompileOnly 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
+
+//  리액트 프로젝트를 스프링 프로젝트에 포함하기
+
+//  변수 선언 및 프로젝트 폴더 설정
+//  def : 변수 선언 키워드
+//  $projectDir : 현재 프로젝트의 폴더 경로
+
+//  리액트 프로젝트의 전체 경로를 설정
+def frontendDir = "$projectDir/frontend"
+
+//  리액트 프로젝트가 빌드되어 복사 될 위치 설정
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
+        }
+    }
+}
+
+
+processResources {
+    dependsOn "copyReactBuildFiles"
+}
+
+//  task : gradle 파일에서 실행하는 함수 선언
+
+//  리액트 프로젝트 인스톨 함수 선언 (npm install 대신 실행)
+task installReact(type: Exec) {
+//      작업 폴더 설정
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+
+//    리액트 모듈 다운로드, os 종류에 따라 실행하는 명령어가 변경됨
+    if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+//        node.js 모듈 핫픽스
+        commandLine "npm.cmd", "audit", "fix"
+//        리액트 프로젝트에서 사용하는 Node.js 모듈 다운로드, package.json 파일을 참조하여 동작
+        commandLine "npm.cmd", "install"
+    }
+    else {
+        commandLine "npm", "audit", "fix"
+        commandLine "npm", "install"
+    }
+}
+
+//  리액트 프로젝트 빌드 함수 선언
+task buildReact(type: Exec) {
+//      지정한 명령 실행 후 동작
+    dependsOn "installReact"
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+
+//    npm 을 통한 리액트 프로젝트 빌드 명령
+    if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+        commandLine "npm.cmd", "run-script", "build"
+    }
+    else {
+        commandLine "npm", "run-script", "build"
+    }
+}
+
+//  빌드된 리액트 프로젝트를 스프링 프로젝트로 복사
+task copyReactBuildFiles(type: Copy) {
+    dependsOn "buildReact"
+//    복사할 대상 설정
+    from "$frontendDir/dist"
+//    타겟의 위치 설정
+    into "$projectDir/src/main/resources/static"
+}
+
+//  Gradle 명령 중 bootJar 명령 실행 시 아래의 명령을 먼저 동작 후 bootJar 의 본래 동작을 수행
+tasks.bootJar {
+    dependsOn "copyReactBuildFiles"
+}
+
+
+
+
+
+
+
+
